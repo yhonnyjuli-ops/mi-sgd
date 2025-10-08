@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>SGD Personal - Yhonny Cutipa Juli</title>
+<style>
+  :root{
+    --bg:#f3f5f7;
+    --card:#ffffff;
+    --accent:#0e3c46;
+    --accent-light:#136774;
+    --muted:#6b7280;
+    --danger:#b91c1c;
+  }
+  *{box-sizing:border-box;font-family:'Segoe UI',Roboto,Arial,sans-serif;}
+  body{margin:0;background:var(--bg);color:#111827;min-height:100vh;}
+  header{
+    background:var(--card);
+    display:flex;align-items:center;gap:12px;
+    box-shadow:0 2px 6px rgba(0,0,0,.05);
+    padding:12px 20px;
+  }
+  header .logo{
+    width:42px;height:42px;
+    background:linear-gradient(135deg,var(--accent),var(--accent-light));
+    color:white;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:15px;
+    letter-spacing:1px;
+  }
+  header h1{font-size:18px;margin:0;}
+  .container{max-width:1100px;margin:20px auto;padding:20px;}
+  .card{background:var(--card);border-radius:12px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.05);margin-bottom:16px;}
+  label{font-size:13px;color:var(--muted);margin-bottom:4px;display:block;}
+  input{width:100%;padding:8px;border-radius:8px;border:1px solid #e5e7eb;background:white;font-size:14px;}
+  button{background:var(--accent);color:white;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;transition:.2s;}
+  button:hover{background:var(--accent-light);}
+  .btn-ghost{background:transparent;color:var(--accent);border:1px solid #d1d5db;}
+  .small{font-size:13px;padding:6px 10px;}
+  .muted{color:var(--muted);font-size:13px;}
+  footer{text-align:center;font-size:13px;color:var(--muted);padding:12px;}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">YCJ</div>
+  <h1>SGD Personal – Yhonny Cutipa Juli</h1>
+  <div id="userLabel" style="margin-left:auto;color:var(--muted);font-size:13px;">No has iniciado sesión</div>
+</header>
+<div class="container" id="app">
+  <div id="auth" class="card">
+    <h3>Acceso personal</h3>
+    <label>Usuario</label><input type="text" id="authUser">
+    <label>Contraseña</label><input type="password" id="authPass">
+    <div style="margin-top:10px;display:flex;gap:8px;">
+      <button id="btnLogin">Entrar</button>
+      <button id="btnRegister" class="btn-ghost">Crear cuenta</button>
+      <button id="btnReset" class="btn-ghost small">Restablecer</button>
+    </div>
+    <p class="muted" style="margin-top:8px;">Los datos se guardan localmente en tu navegador.</p>
+  </div>
+</div>
+<footer>© 2025 SGD Personal – Yhonny Cutipa Juli</footer>
+<script>
+const AUTH_KEY='sgd_user';
+function qs(x){return document.getElementById(x)}
+function reg(u,p){localStorage.setItem(AUTH_KEY,JSON.stringify({u,p}))}
+function login(u,p){const s=JSON.parse(localStorage.getItem(AUTH_KEY)||'null');return s&&s.u===u&&s.p===p}
+qs('btnRegister').onclick=()=>{if(qs('authUser').value&&qs('authPass').value){reg(qs('authUser').value,qs('authPass').value);alert('✅ Cuenta creada correctamente.')}}; 
+qs('btnLogin').onclick=()=>{if(login(qs('authUser').value,qs('authPass').value)){alert('Bienvenido '+qs('authUser').value);}else alert('⚠️ Usuario o contraseña incorrectos.')};
+qs('btnReset').onclick=()=>{localStorage.removeItem(AUTH_KEY);alert('Datos reiniciados.');}
+</script>
+</body>
+</html>
